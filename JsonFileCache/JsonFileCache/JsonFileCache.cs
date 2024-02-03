@@ -6,6 +6,7 @@ namespace JsonFileCache
     public class JsonFileCache<T>
     {
         private readonly string Path;
+        private readonly ConcurrentDictionary<string, DateTime> _localCacheCreationTime;
         public readonly ConcurrentDictionary<string, T> LocalCache;
 
         public JsonFileCache(string path)
@@ -15,6 +16,7 @@ namespace JsonFileCache
             {
                 Directory.CreateDirectory(path);
             }
+            _localCacheCreationTime = new ConcurrentDictionary<string, DateTime>();
             LocalCache = LoadCache();
         }
 
@@ -24,7 +26,17 @@ namespace JsonFileCache
             {
                 var json = JsonConvert.SerializeObject(item);
                 File.WriteAllText($"{Path}{name}.json", json);
+                _localCacheCreationTime.AddOrUpdate(name, DateTime.Now, (s, v) => v = DateTime.Now);
             }
+        }
+
+        public DateTime GetLastItemUpdate(string item)
+        {
+            if(_localCacheCreationTime.TryGetValue(item, out var lastUpdate))
+            {
+                return lastUpdate;
+            }
+            return DateTime.MinValue;
         }
 
         public ConcurrentDictionary<string, T> LoadCache()
@@ -35,8 +47,10 @@ namespace JsonFileCache
             {
                 var json = File.ReadAllText(file);
                 var info = new FileInfo(file);
+                string itemName = info.Name.Substring(0, info.Name.Length - ".json".Length);
+                _localCacheCreationTime.AddOrUpdate(itemName, info.CreationTime, (s, v) => v = info.CreationTime);
                 var item = JsonConvert.DeserializeObject<T>(json);
-                if(!data.TryAdd(info.Name.Substring(0, info.Name.Length - ".json".Length), item!))
+                if(!data.TryAdd(itemName, item!))
                 {
                     throw new Exception($"Failed adding {info.Name} to hash table.");
                 }
