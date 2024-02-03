@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonFileCache", "JsonFileCache\JsonFileCache.csproj", "{955E491D-C2D4-4301-8FFC-B4E2087F4EED}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{955E491D-C2D4-4301-8FFC-B4E2087F4EED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{955E491D-C2D4-4301-8FFC-B4E2087F4EED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{955E491D-C2D4-4301-8FFC-B4E2087F4EED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{955E491D-C2D4-4301-8FFC-B4E2087F4EED}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8F5F2FFD-4FB8-4309-A84B-14F92D9B5E10}
+	EndGlobalSection
+EndGlobal
