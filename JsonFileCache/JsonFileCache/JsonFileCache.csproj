@@ -8,6 +8,10 @@
     <RepositoryUrl>https://github.com/mccabe93/JsonFileCache</RepositoryUrl>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <Description>Simple caching library. Uses json files to store and load cached data, keeping data in memory for quick retrieval.</Description>
+    <Version>1.0.0.1</Version>
+    <Authors>1130 Labs</Authors>
+    <Company>1130 Labs</Company>
+    <Copyright></Copyright>
   </PropertyGroup>
 
   <ItemGroup>
