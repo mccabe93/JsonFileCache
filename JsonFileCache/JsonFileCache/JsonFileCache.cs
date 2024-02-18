@@ -93,11 +93,14 @@ namespace JsonFileCache
 
         private (string cacheItemName, T cacheItem) LoadCacheItem(string file)
         {
-            var json = File.ReadAllText(file);
-            var info = new FileInfo(file);
-            string itemName = info.Name.Substring(0, info.Name.Length - ".json".Length);
-            _localCacheCreationTime.AddOrUpdate(itemName, info.CreationTime, (s, v) => v = info.CreationTime);
-            return (itemName, JsonConvert.DeserializeObject<T>(json) ?? throw new Exception($"Could not deserialize {itemName} @ {file}"));
+            lock (_lock)
+            {
+                var json = File.ReadAllText(file);
+                var info = new FileInfo(file);
+                string itemName = info.Name.Substring(0, info.Name.Length - ".json".Length);
+                _localCacheCreationTime.AddOrUpdate(itemName, info.CreationTime, (s, v) => v = info.CreationTime);
+                return (itemName, JsonConvert.DeserializeObject<T>(json) ?? throw new Exception($"Could not deserialize {itemName} @ {file}"));
+            }
         }
     }
 }
